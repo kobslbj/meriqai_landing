@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { captureEvent } from "@/lib/analytics"
+import { insforge } from "@/lib/insforge"
 import { painCards, type PainId } from "@/lib/landing-data"
 
 import { usePain } from "./pain-context"
@@ -41,8 +42,10 @@ export function PilotForm() {
   const [message, setMessage] = React.useState("")
   const [errors, setErrors] = React.useState<FormErrors>({})
   const [submitted, setSubmitted] = React.useState(false)
+  const [submitting, setSubmitting] = React.useState(false)
+  const [submitError, setSubmitError] = React.useState<string | null>(null)
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     const nextErrors: FormErrors = {}
@@ -58,14 +61,26 @@ export function PilotForm() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
-    const formData = {
-      email,
-      company,
-      role,
-      selectedPain,
-      message,
+    setSubmitting(true)
+    setSubmitError(null)
+
+    const { error } = await insforge.database.from("pilot_requests").insert([
+      {
+        email,
+        company: company.trim(),
+        role: role.trim(),
+        selected_pain: selectedPain,
+        message,
+      },
+    ])
+
+    setSubmitting(false)
+
+    if (error) {
+      console.error("[pilot request] insert failed", error)
+      setSubmitError("Something went wrong — please try again.")
+      return
     }
-    console.log("[pilot request]", formData)
 
     captureEvent("pilot_requested", {
       email_domain: email.split("@")[1],
@@ -174,9 +189,18 @@ export function PilotForm() {
                     />
                   </Field>
 
-                  <ShimmerButton type="submit" className="w-full">
-                    Request pilot
+                  <ShimmerButton
+                    type="submit"
+                    className="w-full disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={submitting}
+                  >
+                    {submitting ? "Submitting…" : "Request pilot"}
                   </ShimmerButton>
+                  {submitError && (
+                    <p className="text-center text-sm text-destructive">
+                      {submitError}
+                    </p>
+                  )}
                 </form>
               )}
             </div>

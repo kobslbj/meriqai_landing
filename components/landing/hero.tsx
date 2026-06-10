@@ -3,7 +3,6 @@
 import { ArrowRight, FileSearch, Mail, MessageSquareText } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
 
-import { BorderBeam } from "@/components/magicui/border-beam"
 import { GridPattern } from "@/components/magicui/grid-pattern"
 import { ShimmerButton } from "@/components/magicui/shimmer-button"
 import { Button } from "@/components/ui/button"
@@ -87,9 +86,7 @@ export function Hero() {
 
 function HeroShipmentCard() {
   return (
-    <div className="relative rounded-xl border border-border bg-card shadow-[0_20px_60px_-24px_oklch(0.45_0.16_250_/_0.25)]">
-      <BorderBeam size={180} duration={10} />
-
+    <div className="rounded-xl border border-border bg-card shadow-[0_20px_60px_-24px_oklch(0.45_0.16_250_/_0.25)]">
       <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
         <div className="font-mono text-sm font-medium">
           Shipment: {mockShipment.id} · {mockShipment.port}
