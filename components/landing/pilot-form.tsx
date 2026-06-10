@@ -1,11 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { CheckCircle2 } from "lucide-react"
+import { CalendarDays, CheckCircle2 } from "lucide-react"
 
 import { BorderBeam } from "@/components/magicui/border-beam"
 import { ShimmerButton } from "@/components/magicui/shimmer-button"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -22,6 +23,8 @@ import { painCards, type PainId } from "@/lib/landing-data"
 
 import { usePain } from "./pain-context"
 import { Reveal } from "./reveal"
+
+const BOOKING_URL = "https://calendar.app.google/ZeKFkEgcuz96X6wW6"
 
 const focusAreas = [
   "FDA",
@@ -117,6 +120,26 @@ export function PilotForm() {
                 </Badge>
               ))}
             </div>
+            <div className="mt-8 border-t border-border/60 pt-6">
+              <p className="text-sm text-muted-foreground">
+                Prefer to talk it through? Grab a time directly.
+              </p>
+              <Button asChild variant="outline" className="mt-3 bg-background">
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    captureEvent("cta_clicked", {
+                      cta: "book_appointment_pilot_section",
+                    })
+                  }
+                >
+                  <CalendarDays className="size-4" />
+                  Book an appointment
+                </a>
+              </Button>
+            </div>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -128,6 +151,24 @@ export function PilotForm() {
                   <p className="text-lg font-medium">
                     Thanks — we&apos;ll reach out to learn about your workflow.
                   </p>
+                  <p className="text-sm text-muted-foreground">
+                    Want to talk sooner? Book a time that works for you.
+                  </p>
+                  <Button asChild variant="outline" className="bg-background">
+                    <a
+                      href={BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        captureEvent("cta_clicked", {
+                          cta: "book_appointment_success",
+                        })
+                      }
+                    >
+                      <CalendarDays className="size-4" />
+                      Book an appointment
+                    </a>
+                  </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-4">
