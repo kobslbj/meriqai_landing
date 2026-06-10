@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import type { PainId } from "@/lib/landing-data"
+import type { PainId } from "@/lib/dictionaries/types"
 
 type PainContextValue = {
   selectedPain: PainId

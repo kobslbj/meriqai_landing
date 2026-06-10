@@ -1,8 +1,14 @@
+"use client"
+
 import Image from "next/image"
+
+import { useDict } from "./locale-context"
 
 const currentYear = new Date().getFullYear()
 
 export function Footer() {
+  const dict = useDict()
+
   return (
     <footer className="bg-muted/30">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6">
@@ -14,16 +20,13 @@ export function Footer() {
             height={36}
             className="h-8 w-auto"
           />
-          <p className="text-xs text-muted-foreground">
-            Operational intelligence for trade teams.
-          </p>
+          <p className="text-xs text-muted-foreground">{dict.footer.tagline}</p>
         </div>
         <div className="max-w-sm space-y-2 text-xs leading-relaxed text-muted-foreground sm:text-right">
+          <p>{dict.footer.copy}</p>
           <p>
-            AI coordination layer for shipment readiness, supplier follow-ups,
-            and trade operations.
+            &copy; {currentYear} Meriq AI. {dict.footer.rights}
           </p>
-          <p>&copy; {currentYear} Meriq AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

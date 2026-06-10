@@ -18,26 +18,20 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { captureEvent } from "@/lib/analytics"
+import type { PainId } from "@/lib/dictionaries/types"
 import { insforge } from "@/lib/insforge"
-import { painCards, type PainId } from "@/lib/landing-data"
 
+import { useLocale } from "./locale-context"
 import { usePain } from "./pain-context"
 import { Reveal } from "./reveal"
 
 const BOOKING_URL = "https://calendar.app.google/ZeKFkEgcuz96X6wW6"
 
-const focusAreas = [
-  "FDA",
-  "APHIS",
-  "food imports",
-  "agriculture",
-  "supplements",
-  "regulated goods",
-]
-
 type FormErrors = Partial<Record<"email" | "company" | "role", string>>
 
 export function PilotForm() {
+  const { locale, dict } = useLocale()
+  const t = dict.pilot
   const { selectedPain, setSelectedPain } = usePain()
   const [email, setEmail] = React.useState("")
   const [company, setCompany] = React.useState("")
@@ -53,13 +47,13 @@ export function PilotForm() {
 
     const nextErrors: FormErrors = {}
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      nextErrors.email = "Enter a valid work email."
+      nextErrors.email = t.form.errors.email
     }
     if (!company.trim()) {
-      nextErrors.company = "Company is required."
+      nextErrors.company = t.form.errors.company
     }
     if (!role.trim()) {
-      nextErrors.role = "Role is required."
+      nextErrors.role = t.form.errors.role
     }
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
@@ -74,6 +68,7 @@ export function PilotForm() {
         role: role.trim(),
         selected_pain: selectedPain,
         message,
+        locale,
       },
     ])
 
@@ -81,7 +76,7 @@ export function PilotForm() {
 
     if (error) {
       console.error("[pilot request] insert failed", error)
-      setSubmitError("Something went wrong — please try again.")
+      setSubmitError(t.form.submitError)
       return
     }
 
@@ -102,15 +97,14 @@ export function PilotForm() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
             <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-              Looking for 3–5 pilot partners.
+              {t.title}
             </h2>
             <p className="mt-4 leading-relaxed text-pretty text-muted-foreground">
-              We&apos;re working with customs brokers, freight forwarders, and
-              import teams handling document-heavy and regulated shipments.
+              {t.copy}
             </p>
-            <p className="mt-5 text-sm font-medium">Especially:</p>
+            <p className="mt-5 text-sm font-medium">{t.especially}</p>
             <div className="mt-2.5 flex flex-wrap gap-1.5">
-              {focusAreas.map((area) => (
+              {t.focusAreas.map((area) => (
                 <Badge
                   key={area}
                   variant="outline"
@@ -122,7 +116,7 @@ export function PilotForm() {
             </div>
             <div className="mt-8 border-t border-border/60 pt-6">
               <p className="text-sm text-muted-foreground">
-                Prefer to talk it through? Grab a time directly.
+                {t.booking.prompt}
               </p>
               <Button asChild variant="outline" className="mt-3 bg-background">
                 <a
@@ -136,7 +130,7 @@ export function PilotForm() {
                   }
                 >
                   <CalendarDays className="size-4" />
-                  Book an appointment
+                  {t.booking.cta}
                 </a>
               </Button>
             </div>
@@ -148,11 +142,9 @@ export function PilotForm() {
               {submitted ? (
                 <div className="flex min-h-72 flex-col items-center justify-center gap-3 text-center">
                   <CheckCircle2 className="size-10 text-emerald-500" />
-                  <p className="text-lg font-medium">
-                    Thanks — we&apos;ll reach out to learn about your workflow.
-                  </p>
+                  <p className="text-lg font-medium">{t.form.success}</p>
                   <p className="text-sm text-muted-foreground">
-                    Want to talk sooner? Book a time that works for you.
+                    {t.form.successBookingPrompt}
                   </p>
                   <Button asChild variant="outline" className="bg-background">
                     <a
@@ -166,16 +158,16 @@ export function PilotForm() {
                       }
                     >
                       <CalendarDays className="size-4" />
-                      Book an appointment
+                      {t.booking.cta}
                     </a>
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                  <Field label="Work email" error={errors.email}>
+                  <Field label={t.form.emailLabel} error={errors.email}>
                     <Input
                       type="email"
-                      placeholder="you@company.com"
+                      placeholder={t.form.emailPlaceholder}
                       value={email}
                       aria-invalid={Boolean(errors.email)}
                       onChange={(e) => setEmail(e.target.value)}
@@ -183,17 +175,17 @@ export function PilotForm() {
                   </Field>
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Company" error={errors.company}>
+                    <Field label={t.form.companyLabel} error={errors.company}>
                       <Input
-                        placeholder="Company name"
+                        placeholder={t.form.companyPlaceholder}
                         value={company}
                         aria-invalid={Boolean(errors.company)}
                         onChange={(e) => setCompany(e.target.value)}
                       />
                     </Field>
-                    <Field label="Role" error={errors.role}>
+                    <Field label={t.form.roleLabel} error={errors.role}>
                       <Input
-                        placeholder="e.g. Licensed customs broker"
+                        placeholder={t.form.rolePlaceholder}
                         value={role}
                         aria-invalid={Boolean(errors.role)}
                         onChange={(e) => setRole(e.target.value)}
@@ -201,7 +193,7 @@ export function PilotForm() {
                     </Field>
                   </div>
 
-                  <Field label="Biggest workflow bottleneck">
+                  <Field label={t.form.bottleneckLabel}>
                     <Select
                       value={selectedPain}
                       onValueChange={(value) =>
@@ -209,10 +201,12 @@ export function PilotForm() {
                       }
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a workflow" />
+                        <SelectValue
+                          placeholder={t.form.bottleneckPlaceholder}
+                        />
                       </SelectTrigger>
                       <SelectContent>
-                        {painCards.map((pain) => (
+                        {dict.painSection.cards.map((pain) => (
                           <SelectItem key={pain.id} value={pain.id}>
                             {pain.title}
                           </SelectItem>
@@ -221,9 +215,9 @@ export function PilotForm() {
                     </Select>
                   </Field>
 
-                  <Field label="Workflow description (optional)">
+                  <Field label={t.form.messageLabel}>
                     <Textarea
-                      placeholder="Tell us what this workflow looks like for your team today…"
+                      placeholder={t.form.messagePlaceholder}
                       rows={4}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
@@ -235,7 +229,7 @@ export function PilotForm() {
                     className="w-full disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={submitting}
                   >
-                    {submitting ? "Submitting…" : "Request pilot"}
+                    {submitting ? t.form.submitting : t.form.submit}
                   </ShimmerButton>
                   {submitError && (
                     <p className="text-center text-sm text-destructive">

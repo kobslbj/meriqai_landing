@@ -11,9 +11,9 @@ import {
 } from "lucide-react"
 
 import { captureEvent } from "@/lib/analytics"
-import { featureCards } from "@/lib/landing-data"
 import { cn } from "@/lib/utils"
 
+import { useDict } from "./locale-context"
 import { Reveal } from "./reveal"
 
 const featureMeta: Record<string, { icon: React.ElementType; span: string }> = {
@@ -30,22 +30,21 @@ const featureMeta: Record<string, { icon: React.ElementType; span: string }> = {
 }
 
 export function FeatureGrid() {
+  const dict = useDict()
+
   return (
     <section className="border-b border-border/60">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Built for the messy coordination layer before filing.
+            {dict.features.title}
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            Meriq prepares the operational context your team needs before review
-            and filing.
-          </p>
+          <p className="mt-3 text-muted-foreground">{dict.features.subtitle}</p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-            {featureCards.map((feature) => {
+            {dict.features.cards.map((feature) => {
               const meta = featureMeta[feature.id]
               const Icon = meta.icon
               return (

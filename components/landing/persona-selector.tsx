@@ -4,9 +4,9 @@ import * as React from "react"
 import { Building2, Ship, ShieldCheck, Check } from "lucide-react"
 
 import { captureEvent } from "@/lib/analytics"
-import { personas } from "@/lib/landing-data"
 import { cn } from "@/lib/utils"
 
+import { useDict } from "./locale-context"
 import { Reveal } from "./reveal"
 
 const personaIcons: Record<string, React.ElementType> = {
@@ -16,6 +16,7 @@ const personaIcons: Record<string, React.ElementType> = {
 }
 
 export function PersonaSelector() {
+  const dict = useDict()
   const [selected, setSelected] = React.useState<string | null>(null)
 
   return (
@@ -23,14 +24,13 @@ export function PersonaSelector() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Built for the teams stuck between customers, suppliers, and filing
-            systems.
+            {dict.personas.title}
           </h2>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
-            {personas.map((persona) => {
+            {dict.personas.cards.map((persona) => {
               const Icon = personaIcons[persona.id]
               const isSelected = selected === persona.id
               return (

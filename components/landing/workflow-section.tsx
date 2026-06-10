@@ -7,13 +7,14 @@ import { ArrowDown, CheckCircle2, XCircle } from "lucide-react"
 import { AnimatedBeam } from "@/components/magicui/animated-beam"
 import { Button } from "@/components/ui/button"
 import { captureEvent } from "@/lib/analytics"
-import { workflowAfter, workflowBefore } from "@/lib/landing-data"
 import { cn } from "@/lib/utils"
 
+import { useDict } from "./locale-context"
 import { scrollToSection } from "./pain-context"
 import { Reveal } from "./reveal"
 
 export function WorkflowSection() {
+  const dict = useDict()
   const containerRef = React.useRef<HTMLDivElement>(null)
   const beforeRef = React.useRef<HTMLDivElement>(null)
   const midRef = React.useRef<HTMLDivElement>(null)
@@ -27,11 +28,10 @@ export function WorkflowSection() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            From email chaos to shipment readiness.
+            {dict.workflow.title}
           </h2>
           <p className="mt-3 text-pretty text-muted-foreground">
-            Meriq sits before filing, where shipment context is scattered across
-            documents, emails, supplier threads, PDFs, and customer questions.
+            {dict.workflow.subtitle}
           </p>
         </Reveal>
 
@@ -42,8 +42,8 @@ export function WorkflowSection() {
           >
             <WorkflowCard
               ref={beforeRef}
-              title="Before Meriq"
-              items={workflowBefore}
+              title={dict.workflow.beforeTitle}
+              items={dict.workflow.before}
               icon={<XCircle className="size-4 text-red-500" />}
               className="border-border bg-card"
             />
@@ -67,8 +67,8 @@ export function WorkflowSection() {
 
             <WorkflowCard
               ref={afterRef}
-              title="With Meriq"
-              items={workflowAfter}
+              title={dict.workflow.afterTitle}
+              items={dict.workflow.after}
               icon={<CheckCircle2 className="size-4 text-emerald-500" />}
               className="border-brand/30 bg-card ring-1 ring-brand/15"
             />
@@ -105,7 +105,7 @@ export function WorkflowSection() {
               scrollToSection("example-shipment")
             }}
           >
-            Show workflow example
+            {dict.workflow.cta}
           </Button>
         </Reveal>
       </div>

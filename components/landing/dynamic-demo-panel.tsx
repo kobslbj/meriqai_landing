@@ -6,15 +6,17 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { BorderBeam } from "@/components/magicui/border-beam"
 import { Button } from "@/components/ui/button"
 import { captureEvent } from "@/lib/analytics"
-import { painCards } from "@/lib/landing-data"
 
+import { useDict } from "./locale-context"
 import { scrollToSection, usePain } from "./pain-context"
 import { StatusPill } from "./status-pill"
 
 export function DynamicDemoPanel() {
+  const dict = useDict()
   const { selectedPain } = usePain()
   const reduceMotion = useReducedMotion()
-  const card = painCards.find((c) => c.id === selectedPain) ?? painCards[0]
+  const cards = dict.painSection.cards
+  const card = cards.find((c) => c.id === selectedPain) ?? cards[0]
 
   return (
     <div className="relative mt-8 overflow-hidden rounded-xl border border-border bg-card">
@@ -22,7 +24,7 @@ export function DynamicDemoPanel() {
       <div className="flex items-center gap-2 border-b border-border/70 bg-muted/40 px-5 py-3">
         <Sparkles className="size-4 text-brand" />
         <span className="font-mono text-xs text-muted-foreground">
-          Live workflow preview
+          {dict.painSection.previewLabel}
         </span>
       </div>
 
@@ -56,13 +58,7 @@ export function DynamicDemoPanel() {
                   ))}
                 {!line.value && line.tone && (
                   <StatusPill tone={line.tone} withDot>
-                    {line.tone === "ready"
-                      ? "Done"
-                      : line.tone === "warning"
-                        ? "Open"
-                        : line.tone === "blocking"
-                          ? "Blocking"
-                          : "Info"}
+                    {dict.painSection.toneFallback[line.tone]}
                   </StatusPill>
                 )}
               </li>
@@ -79,7 +75,7 @@ export function DynamicDemoPanel() {
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/70 bg-muted/40 px-5 py-4">
         <p className="text-sm text-muted-foreground">
-          Is this the workflow slowing your team down?
+          {dict.painSection.question}
         </p>
         <Button
           className="bg-brand text-brand-foreground hover:bg-brand/90"
@@ -91,7 +87,7 @@ export function DynamicDemoPanel() {
             scrollToSection("pilot")
           }}
         >
-          Validate this workflow with us
+          {dict.painSection.validateCta}
           <ArrowRight className="size-4" />
         </Button>
       </div>

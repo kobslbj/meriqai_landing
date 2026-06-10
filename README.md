@@ -36,13 +36,19 @@ npm run lint       # eslint
 npm run format     # prettier (write)
 ```
 
+## i18n
+
+Two locales: `/en` (English) and `/zh` (繁體中文, Taiwan market). Visiting `/` redirects by browser `Accept-Language` (`proxy.ts`). ALL copy lives in `lib/dictionaries/en.ts` and `lib/dictionaries/zh.ts` (typed by `lib/dictionaries/types.ts`) — edit copy there, never in components. **Ids (`PainId`, `FeatureId`, event values) must stay identical across locales** — they drive icons, layout, and analytics.
+
 ## Project layout
 
 ```
-app/page.tsx              # assembles all landing sections
+app/[lang]/page.tsx       # assembles all landing sections (en + zh statically generated)
+proxy.ts                  # Accept-Language redirect at /
 components/landing/       # one file per section (hero, pain-selector, pilot-form, …)
 components/magicui/       # border-beam, shimmer-button, marquee, animated-beam, grid-pattern
-lib/landing-data.ts       # ALL copy + mock data lives here (edit copy here, not in components)
+lib/dictionaries/         # ALL copy + mock data, per locale (en.ts / zh.ts)
+lib/i18n.ts               # locales, getDictionary()
 lib/analytics.ts          # typed captureEvent() wrapper for PostHog
 lib/insforge.ts           # InsForge client (anon key)
 migrations/               # InsForge database migrations
@@ -52,7 +58,7 @@ migrations/               # InsForge database migrations
 
 Core validation funnel: `pain_selected` → `demo_tab_clicked` → `cta_clicked` → `pilot_requested`.
 
-All events go through `captureEvent()` in `lib/analytics.ts` (no-ops with `console.debug` when no key is set). Results live in the [Pain Validation dashboard](https://us.posthog.com/project/464594/dashboard/1696158).
+All events go through `captureEvent()` in `lib/analytics.ts` (no-ops with `console.debug` when no key is set) and carry a `locale` property (`en` / `zh`) for per-market segmentation. Results live in the [Pain Validation dashboard](https://us.posthog.com/project/464594/dashboard/1696158).
 
 ## Backend (InsForge)
 
