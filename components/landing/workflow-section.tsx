@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { ArrowDown, Boxes, CheckCircle2, XCircle } from "lucide-react"
+import Image from "next/image"
+import { ArrowDown, CheckCircle2, XCircle } from "lucide-react"
 
 import { AnimatedBeam } from "@/components/magicui/animated-beam"
 import { Button } from "@/components/ui/button"
@@ -52,7 +53,14 @@ export function WorkflowSection() {
                 ref={midRef}
                 className="z-10 flex size-14 items-center justify-center rounded-full border border-brand/30 bg-background shadow-[0_8px_30px_-8px_oklch(0.45_0.16_250_/_0.4)]"
               >
-                <Boxes className="size-6 text-brand" />
+                <Image
+                  src="/meriq-ai-mark.svg"
+                  alt=""
+                  width={34}
+                  height={26}
+                  className="h-7 w-auto"
+                  aria-hidden="true"
+                />
               </div>
               <ArrowDown className="absolute -bottom-4 left-1/2 size-4 -translate-x-1/2 text-muted-foreground lg:hidden" />
             </div>
