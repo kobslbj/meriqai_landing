@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 384" role="img" aria-labelledby="title desc">
+  <title id="title">Meriq AI mark</title>
+  <desc id="desc">A minimal geometric M mark with strong blue and graphite facets.</desc>
+  <defs>
+    <linearGradient id="top-left" x1="72" y1="54" x2="262" y2="206" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#075bd8"/>
+    </linearGradient>
+    <linearGradient id="top-right" x1="440" y1="54" x2="250" y2="206" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#60e0ff"/>
+      <stop offset="1" stop-color="#0877ff"/>
+    </linearGradient>
+    <linearGradient id="side-left" x1="87" y1="125" x2="194" y2="313" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1554b8"/>
+      <stop offset="1" stop-color="#061a3f"/>
+    </linearGradient>
+    <linearGradient id="side-right" x1="425" y1="125" x2="318" y2="313" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b63ce"/>
+      <stop offset="1" stop-color="#07111f"/>
+    </linearGradient>
+    <linearGradient id="center" x1="214" y1="145" x2="298" y2="222" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#043b91"/>
+      <stop offset="1" stop-color="#0ea5ff"/>
+    </linearGradient>
+  </defs>
+
+  <path fill="url(#top-left)" d="M64 88 126 46l130 104v76L64 88Z"/>
+  <path fill="url(#top-right)" d="M448 88 386 46 256 150v76L448 88Z"/>
+  <path fill="url(#center)" d="M256 150v76l-39-31 39-45Z"/>
+  <path fill="#041f52" opacity=".22" d="M256 150v76l39-31-39-45Z"/>
+  <path fill="url(#side-left)" d="M64 110 130 162v156l-66-52V110Z"/>
+  <path fill="url(#side-right)" d="M448 110 382 162v156l66-52V110Z"/>
+</svg>

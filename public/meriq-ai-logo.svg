@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 236" role="img" aria-labelledby="title desc">
+  <title id="title">Meriq AI logo</title>
+  <desc id="desc">A minimal geometric Meriq AI mark with a custom meriq ai wordmark.</desc>
+  <defs>
+    <linearGradient id="mark-top-left" x1="32" y1="45" x2="145" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#075bd8"/>
+    </linearGradient>
+    <linearGradient id="mark-top-right" x1="253" y1="45" x2="140" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#60e0ff"/>
+      <stop offset="1" stop-color="#0877ff"/>
+    </linearGradient>
+    <linearGradient id="mark-side-left" x1="42" y1="86" x2="105" y2="199" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1554b8"/>
+      <stop offset="1" stop-color="#061a3f"/>
+    </linearGradient>
+    <linearGradient id="mark-side-right" x1="243" y1="86" x2="180" y2="199" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b63ce"/>
+      <stop offset="1" stop-color="#07111f"/>
+    </linearGradient>
+    <linearGradient id="mark-center" x1="119" y1="100" x2="166" y2="144" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#043b91"/>
+      <stop offset="1" stop-color="#0ea5ff"/>
+    </linearGradient>
+    <linearGradient id="ai-stroke" x1="761" y1="62" x2="930" y2="165" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0eb7ff"/>
+      <stop offset=".48" stop-color="#0877ff"/>
+      <stop offset="1" stop-color="#0545aa"/>
+    </linearGradient>
+  </defs>
+
+  <g aria-hidden="true">
+    <path fill="url(#mark-top-left)" d="M32 65 69 40l73 59v43L32 65Z"/>
+    <path fill="url(#mark-top-right)" d="M253 65 216 40l-74 59v43L253 65Z"/>
+    <path fill="url(#mark-center)" d="M142 99v43l-22-18 22-25Z"/>
+    <path fill="#041f52" opacity=".22" d="M142 99v43l22-18-22-25Z"/>
+    <path fill="url(#mark-side-left)" d="M32 78 69 107v89l-37-29V78Z"/>
+    <path fill="url(#mark-side-right)" d="M253 78 216 107v89l37-29V78Z"/>
+  </g>
+
+  <g fill="none" stroke="#07111f" stroke-linecap="round" stroke-linejoin="round" stroke-width="13.5" aria-hidden="true">
+    <path d="M327 156V95c0-16 10-27 25-27 16 0 27 12 27 30v58"/>
+    <path d="M379 99c4-19 16-31 34-31 19 0 31 13 31 35v53"/>
+    <path d="M492 158c-29 0-49-19-49-45 0-27 20-46 47-46 25 0 43 17 43 42H444"/>
+    <path d="M444 113c4 25 23 45 52 45"/>
+    <path d="M569 156V70"/>
+    <path d="M569 105c9-24 26-37 50-34"/>
+    <path d="M650 156V82"/>
+    <path d="M650 45h.1"/>
+    <path d="M731 158c-28 0-49-20-49-45s21-45 49-45 49 20 49 45-21 45-49 45Z"/>
+    <path d="M767 146l35 34"/>
+  </g>
+
+  <g fill="none" stroke="url(#ai-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="13.5" aria-hidden="true">
+    <path d="M865 158c-28 0-49-20-49-45s21-45 49-45 49 20 49 45v43"/>
+    <path d="M942 156V82"/>
+    <path d="M942 45h.1"/>
+  </g>
+</svg>

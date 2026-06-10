@@ -1,6 +1,6 @@
 "use client"
 
-import { Boxes } from "lucide-react"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import { captureEvent } from "@/lib/analytics"
@@ -20,19 +20,16 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2.5 text-left"
+          className="flex items-center"
         >
-          <span className="flex size-7 items-center justify-center rounded-md bg-brand text-brand-foreground">
-            <Boxes className="size-4" />
-          </span>
-          <span className="leading-tight">
-            <span className="block text-sm font-semibold tracking-tight">
-              Meriq AI
-            </span>
-            <span className="hidden text-[0.65rem] text-muted-foreground md:block">
-              Operational intelligence for trade teams.
-            </span>
-          </span>
+          <Image
+            src="/meriq-ai-logo.svg"
+            alt="Meriq AI"
+            width={150}
+            height={36}
+            priority
+            className="h-8 w-auto"
+          />
         </button>
 
         <nav className="hidden items-center gap-1 sm:flex">
