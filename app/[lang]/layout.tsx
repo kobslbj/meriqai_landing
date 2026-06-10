@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "../globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { getDictionary, hasLocale, locales } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
@@ -47,7 +46,6 @@ export default async function RootLayout({
   return (
     <html
       lang={lang === "zh" ? "zh-Hant" : "en"}
-      suppressHydrationWarning
       className={cn(
         "antialiased",
         fontMono.variable,
@@ -55,11 +53,7 @@ export default async function RootLayout({
         geist.variable
       )}
     >
-      <body>
-        <ThemeProvider forcedTheme="light" enableSystem={false}>
-          {children}
-        </ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
