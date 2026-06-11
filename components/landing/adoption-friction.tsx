@@ -26,6 +26,11 @@ export function AdoptionFriction() {
           <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
             {dict.adoption.title}
           </h2>
+          {dict.adoption.subtitle ? (
+            <p className="mt-3 text-pretty text-muted-foreground">
+              {dict.adoption.subtitle}
+            </p>
+          ) : null}
         </Reveal>
 
         <Reveal delay={0.1}>

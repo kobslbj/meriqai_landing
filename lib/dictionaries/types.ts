@@ -161,6 +161,7 @@ export type Dictionary = {
   }
   adoption: {
     title: string
+    subtitle?: string
     bullets: string[]
     artifacts: string[]
   }

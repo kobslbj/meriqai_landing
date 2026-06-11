@@ -433,6 +433,8 @@ Pacific Grain Imports Inc. (Importer of record)`,
   },
   adoption: {
     title: "Works alongside your existing workflow.",
+    subtitle:
+      "Meriq does not replace your filing system or your brokers. It handles the pre-filing work that eats the most time — document collection, blocker tracking, customer Q&A, and case preparation — so brokers review full context before filing starts.",
     bullets: [
       "No ERP migration required",
       "Works with PDFs, email threads, scanned docs, and spreadsheets",
